@@ -43,8 +43,8 @@ object layout {
   private def fontPreload(implicit ctx: Context) =
     raw {
       s"""<link rel="preload" href="${assetUrl(
-        s"font/lichess.woff2"
-      )}" as="font" type="font/woff2" crossorigin>""" +
+        s"font/lichess.woff"
+      )}" as="font" type="font/woff" crossorigin>""" +
         !ctx.pref.pieceNotationIsLetter ??
           s"""<link rel="preload" href="${assetUrl(
             s"font/lichess.chess.woff2"
