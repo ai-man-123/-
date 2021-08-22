@@ -37,7 +37,14 @@ ui/puz/**/*.d.ts
 ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
-yarn-error.log
+
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 
 RUNNING_PID
 

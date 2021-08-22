@@ -7,6 +7,8 @@ on:
       - 'public/**'
       - 'ui/**'
       - 'package.json'
+      - '.yarn/*'
+      - '.yarnrc.yml'
       - 'yarn.lock'
   pull_request:
     paths:
@@ -14,6 +16,8 @@ on:
       - 'public/**'
       - 'ui/**'
       - 'package.json'
+      - '.yarn/*'
+      - '.yarnrc.yml'
       - 'yarn.lock'
 
 jobs:
@@ -36,7 +40,7 @@ jobs:
           path: ab
         continue-on-error: true
         id: ab
-      - run: yarn link --cwd "$GITHUB_WORKSPACE/ab" && yarn link ab --cwd ui/round
+      - run: mv ab .. && yarn link --private ../ab
         if: steps.ab.outcome == 'success'
       - run: ./ui/build prod
       - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt

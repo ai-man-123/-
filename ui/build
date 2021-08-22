@@ -24,9 +24,9 @@ analyse_plugins="nvui studyTopicForm"
 puzzle_plugins="nvui dashboard"
 
 if [ $mode == "upgrade" ]; then
-  yarn upgrade --non-interactive
+  yarn upgrade
 else
-  yarn install --non-interactive
+  yarn install
 fi
 
 build() {
