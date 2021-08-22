@@ -14,10 +14,10 @@
     "prod": "yarn run compile"
   },
   "dependencies": {
-    "chessops": "^0.10.0",
-    "snabbdom": "^3.0.1",
     "chessground": "^8.1.5",
-    "common": "2.0.0"
+    "chessops": "^0.10.0",
+    "common": "2.0.0",
+    "snabbdom": "^3.0.1"
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",
