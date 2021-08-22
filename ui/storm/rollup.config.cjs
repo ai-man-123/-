@@ -1,6 +1,6 @@
-import rollupProject from '@build/rollupProject';
+const rollupProject = require('@build/rollupProject');
 
-export default rollupProject({
+module.exports = rollupProject({
   main: {
     name: 'LichessStorm',
     input: 'src/main.ts',
