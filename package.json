@@ -19,7 +19,7 @@
   "homepage": "https://lichess.org",
   "engines": {
     "node": ">=10 <=16",
-    "yarn": "^1"
+    "pnpm": ">=6"
   },
   "dependencies": {
     "prettier": "2.3.2",

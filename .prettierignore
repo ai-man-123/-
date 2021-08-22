@@ -21,6 +21,8 @@ ui/nvui/**/*.d.ts
 ui/puz/**/*.js
 ui/puz/**/*.d.ts
 
+pnpm-lock.yaml
+
 *.min.js
 
 .bloop/

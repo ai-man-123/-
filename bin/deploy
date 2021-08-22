@@ -39,7 +39,8 @@ ASSETS_FILES = [
     "public",
     "ui",
     "package.json",
-    "yarn.lock",
+    "pnpm-workspace.yaml",
+    "pnpm-lock.yaml",
 ]
 
 SERVER_FILES = [

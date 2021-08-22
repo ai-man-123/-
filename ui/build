@@ -1,12 +1,12 @@
 #!/bin/bash -ea
 
 target=${1-dev}
-mode=${2-build} # build | upgrade | css | js
+mode=${2-build} # build | css | js
 echo "building ui modules with target=$target and mode=$mode"
 
 nodever="$(node --version)"
 echo "node: $nodever"
-echo "yarn: $(yarn --version)"
+echo "pnpm: $(pnpm --version)"
 
 [[ "$nodever" =~ ^v1[2-6]\.[0-9]+\.[0-9]+$ ]] || { echo "Node version >=12 and <=16 required. Found: $nodever"; exit 1; }
 
@@ -23,11 +23,7 @@ round_plugins="nvui keyboardMove"
 analyse_plugins="nvui studyTopicForm"
 puzzle_plugins="nvui dashboard"
 
-if [ $mode == "upgrade" ]; then
-  yarn upgrade --non-interactive
-else
-  yarn install --non-interactive
-fi
+pnpm install
 
 build() {
   echo
@@ -35,10 +31,10 @@ build() {
   set -ev
   if [[ $1 == "css" ]]; then
     cd ui
-    yarn run gulp "css-$target"
+    pnpm run gulp "css-$target"
   else
     cd ui/$1
-    yarn run $target
+    pnpm run $target
   fi
 }
 
@@ -47,10 +43,10 @@ build_plugin() {
   echo "### ui/$1 plugin $2 ###"
   set -ev
   cd ui/$1
-  yarn run plugin-$target $2
+  pnpm run plugin-$target $2
 }
 
-if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
+if [ $mode != "js" ]; then
   apps4="css $apps4"
 fi
 
