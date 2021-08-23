@@ -1,8 +1,7 @@
 #!/bin/bash -ea
 
 target=${1-dev}
-mode=${2-build} # build | css | js
-echo "building ui modules with target=$target and mode=$mode"
+echo "building ui modules with target=$target"
 
 nodever="$(node --version)"
 echo "node: $nodever"
@@ -17,39 +16,33 @@ mkdir -p public/compiled
 pnpm install
 pnpm recursive run --workspace-concurrency 0 "$target"
 
-if [ $mode != "js" ]; then
-  (cd ui && pnpm run gulp "css-$target")
-fi
+build_plugin() {
+  echo
+  echo "### ui/$1 plugin $2 ###"
+  set -ev
+  cd ui/$1
+  pnpm run plugin-$target $2
+}
 
-if [ $mode != "css" ]; then
-  build_plugin() {
-    echo
-    echo "### ui/$1 plugin $2 ###"
-    set -ev
-    cd ui/$1
-    pnpm run plugin-$target $2
-  }
+site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats contact userGamesDownload modActivity"
+round_plugins="nvui keyboardMove"
+analyse_plugins="nvui studyTopicForm"
+puzzle_plugins="nvui dashboard"
 
-  site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats contact userGamesDownload modActivity"
-  round_plugins="nvui keyboardMove"
-  analyse_plugins="nvui studyTopicForm"
-  puzzle_plugins="nvui dashboard"
-
-  if type -p parallel; then # parallel execution!
-    if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
-      P_OPTS="-j+0 --halt 2"
-      [ -n "$GITHUB_WORKFLOW" ] || P_OPTS+=" --bar"
-    fi
-    set -x
-    parallel --gnu $P_OPTS build_plugin site ::: $site_plugins
-    parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
-    parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
-    parallel --gnu $P_OPTS build_plugin puzzle ::: $puzzle_plugins
-  else # sequential execution
-    echo "For faster builds, install GNU parallel."
-    for plugin in $site_plugins; do (build_plugin site $plugin); done
-    for plugin in $round_plugins; do (build_plugin round $plugin); done
-    for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done
-    for plugin in $puzzle_plugins; do (build_plugin puzzle $plugin); done
+if type -p parallel; then # parallel execution!
+  if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
+    P_OPTS="-j+0 --halt 2"
+    [ -n "$GITHUB_WORKFLOW" ] || P_OPTS+=" --bar"
   fi
+  set -x
+  parallel --gnu $P_OPTS build_plugin site ::: $site_plugins
+  parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
+  parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
+  parallel --gnu $P_OPTS build_plugin puzzle ::: $puzzle_plugins
+else # sequential execution
+  echo "For faster builds, install GNU parallel."
+  for plugin in $site_plugins; do (build_plugin site $plugin); done
+  for plugin in $round_plugins; do (build_plugin round $plugin); done
+  for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done
+  for plugin in $puzzle_plugins; do (build_plugin puzzle $plugin); done
 fi

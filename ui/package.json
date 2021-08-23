@@ -25,6 +25,8 @@
     "gulp-sourcemaps": "^3.0.0"
   },
   "scripts": {
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "dev": "gulp css-dev",
+    "prod": "gulp css-prod"
   }
 }
