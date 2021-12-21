@@ -11,15 +11,15 @@ object index {
 
   def apply(data: lila.practice.UserPractice)(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Practice chess positions",
+      title = trans.practice.practiceYourChess.txt(),
       moreCss = cssTag("practice.index"),
-      moreJs = embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {
-if (confirm('You will lose your practice progress!')) this.parentNode.submit();
+      moreJs = embedJsUnsafeLoadThen("""$('.do-reset').on('click', function() {
+if (confirm($(this).data('confirm'))) this.parentNode.submit();
 });"""),
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Practice your chess",
-          description = "Learn how to master the most common chess positions",
+          description = "Learn how to master the most common patterns in chess",
           url = s"$netBaseUrl${routes.Practice.index}"
         )
         .some
@@ -27,15 +27,15 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
       main(cls := "page-menu")(
         st.aside(cls := "page-menu__menu practice-side")(
           i(cls := "fat"),
-          h1("Practice"),
-          h2("makes your chess perfect"),
+          h1(trans.practice.practice()),
+          h2(trans.practice.makesPerfect()),
           div(cls := "progress")(
-            div(cls := "text")("Progress: ", data.progressPercent, "%"),
+            div(cls := "text")(trans.practice.progressX(s"${data.progressPercent}%")),
             div(cls := "bar", style := s"width: ${data.progressPercent}%")
           ),
           postForm(action := routes.Practice.reset)(
-            if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
-            else a(href := routes.Auth.signup)("Sign up to save your progress")
+            if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset", attr("data-confirm") := trans.practice.youWillLoseYourPracticeProgress.txt())(trans.practice.resetMyProgress())
+            else a(href := routes.Auth.signup)(trans.practice.signUpToSaveYourProgress())
           )
         ),
         div(cls := "page-menu__content practice-app")(

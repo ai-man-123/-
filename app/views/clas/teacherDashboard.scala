@@ -185,7 +185,7 @@ object teacherDashboard {
               th(dataSortDefault)(
                 trans.clas.nbStudents.pluralSame(students.size),
                 dataSortNumberTh(trans.chessBasics()),
-                dataSortNumberTh(trans.practice()),
+                dataSortNumberTh(trans.practice.practice()),
                 dataSortNumberTh(trans.coordinates.coordinates())
               )
             ),

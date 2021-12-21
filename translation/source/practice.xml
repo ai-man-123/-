@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="practice">Practice</string>
+  <string name="practiceYourChess">Practice your chess</string>
+  <string name="makesPerfect">makes perfect</string>
+  <string name="progressX">Progress: %s</string>
+  <string name="resetMyProgress">Reset my progress</string>
+  <string name="youWillLoseYourPracticeProgress">You will lose your practice progress!</string>
+  <string name="signUpToSaveYourProgress">Sign up to save your progress</string>
+  <string name="practiceList">Practice list</string>
+  <string name="checkmateTheOpponent">Checkmate the opponent</string>
+  <plurals name="checkmateTheOpponentInNbMoves">
+    <item quantity="one">Checkmate the opponent in %s move</item>
+    <item quantity="other">Checkmate the opponent in %s moves</item>
+  </plurals>
+  <plurals name="holdTheDrawForNbMoves">
+    <item quantity="one">Hold the draw for %s more move</item>
+    <item quantity="other">Hold the draw for %s more moves</item>
+  </plurals>
+  <plurals name="equalizeInNbMoves">
+    <item quantity="one">Equalize in %s move</item>
+    <item quantity="other">Equalize in %s moves</item>
+  </plurals>
+  <plurals name="winInNbMoves">
+    <item quantity="one">Get a winning position in %s move</item>
+    <item quantity="other">Get a winning position in %s moves</item>
+  </plurals>
+  <plurals name="defendForNbMoves">
+    <item quantity="one">Defend for %s move</item>
+    <item quantity="other">Defend for %s moves</item>
+  </plurals>
+  <string name="safelyPromote">Safely promote your pawn</string>
+  <string name="morePractice">More practice</string>
+  <string name="loadNextExerciseImmediately">Load next exercise immediately</string>
+  <string name="practiceSuccess">Success!</string>
+  <string name="goToNextExercise">Go to next exercise</string>
+  <string name="backToPracticeMenu">Back to practice menu</string>
+  <string name="clickToRetry">Click to retry</string>
+</resources>
